@@ -43,7 +43,7 @@ public class JsonTableOfContents implements TableOfContents {
         return keys;
     }
 
-    private Map<String, LawMetadataJson> laws = keys.stream().map( key -> Pair.of(key, asLaw(key) ) ).collect( Collectors.toMap( Pair::getKey, kv -> kv.getValue() ) );
+    private Map<String, LawMetadataJson> laws = keys().stream().map( key -> Pair.of(key, asLaw(key) ) ).collect( Collectors.toMap( Pair::getKey, kv -> kv.getValue() ) );
 
     public LawMetadataJson asLaw( final String key ) {
         return Json.fromJson( json.get( key ), LawMetadataJson.class );

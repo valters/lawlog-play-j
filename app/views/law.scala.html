@@ -1,6 +1,7 @@
 @(key: String, law: services.LawMetadata, currVer: String, diffVer: String, diffContent: Html)
 
 @import utils.DateParam._
+@import org.apache.commons.lang3.tuple.Pair
 
 @main("LawLog :: "+law.meta.desc, "index") {
 <div id="lawdiff-ajax-content" class="container">
@@ -12,8 +13,8 @@
                         Versijas
                     </li>
                     <div class="menu">
-        @for( ( date, isoDt ) <- law.isoVersions ) {
-            <li><a id="@isoDt" v-on:click.prevent="loadLaw( '@key', '@isoDt' )" href="@routes.LawController.version( key, isoDt )" @if( diffVer == isoDt ) { class="active" }>@date</a></li>
+        @for( lp: Pair[String, String] <- law.isoVersions ) {
+            <li><a id="@lp.getValue" v-on:click.prevent="loadLaw( '@lp.getKey', '@lp.getValue' )" href="@routes.LawController.version( lp.getKey, lp.getValue )" @if( diffVer == lp.getValue ) { class="active" }>@lp.getKey</a></li>
         }
                     </div>
 
