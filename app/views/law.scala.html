@@ -4,7 +4,9 @@
 @import org.apache.commons.lang3.tuple.Pair
 
 @main("LawLog :: "+law.meta.desc, "index") {
-<div id="important-data" class="hidden-data" data-data='@diffVer'></div>
+<script type="application/json" id="important-data">
+    { "version" : "@diffVer" }
+</script>
 
 <div id="lawdiff-ajax-content" class="container">
     <div class="row">

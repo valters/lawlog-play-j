@@ -13,8 +13,8 @@ function lawInit() {
             // seed with current version
             seedLaw: function() {
                 var element = document.getElementById('important-data');
-                var ver = element.getAttribute('data-data');
-                this.currVer = ver
+                var data = JSON.parse(element.textContent);
+                this.currVer = data.version
                 console.log( "seedLaw: " + this.currVer )
                 LawScroll.setup_click_handlers()
             },
