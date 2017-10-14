@@ -4,6 +4,8 @@ import java.time.Clock;
 import services.ApplicationTimer;
 import services.AtomicCounter;
 import services.Counter;
+import services.JsonTableOfContents;
+import services.TableOfContents;
 
 /**
  * This class is a Guice module that tells Guice how to bind several
@@ -19,6 +21,7 @@ public class Module extends AbstractModule {
 
     @Override
     public void configure() {
+        bind( TableOfContents.class).to( JsonTableOfContents.class );
         // Use the system clock as the default implementation of Clock
         bind(Clock.class).toInstance(Clock.systemDefaultZone());
         // Ask Guice to create an instance of ApplicationTimer when the

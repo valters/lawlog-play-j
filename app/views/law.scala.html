@@ -1,0 +1,49 @@
+@(key: String, law: services.LawMetadata, currVer: String, diffVer: String, diffContent: Html)
+
+@import utils.DateParam._
+
+@main("LawLog :: "+law.meta.desc, "index") {
+<div id="lawdiff-ajax-content" class="container">
+    <div class="row">
+        <div class="wrapper">
+            <div class="side-bar">
+                <ul>
+                    <li class="menu-head">
+                        Versijas
+                    </li>
+                    <div class="menu">
+        @for( ( date, isoDt ) <- law.isoVersions ) {
+            <li><a id="@isoDt" v-on:click.prevent="loadLaw( '@key', '@isoDt' )" href="@routes.LawController.version( key, isoDt )" @if( diffVer == isoDt ) { class="active" }>@date</a></li>
+        }
+                    </div>
+
+                </ul>
+            </div>
+            <div class="content">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">@law.meta.desc</div>
+                        <div class="panel-body">
+
+                            <div id="lawdiff-server-side">
+                                @diffContent
+                            </div>
+
+                            <div v-html="bodyContent">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@tags.script.asset( "javascripts/law.js" )
+<script type="text/javascript">
+  var Law = lawInit( "@diffVer" )
+  LawScroll.setup_click_handlers()
+</script>
+
+}

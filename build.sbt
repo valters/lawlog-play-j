@@ -18,7 +18,6 @@ libraryDependencies += "org.webjars" % "vue" % "2.4.2"
 // xml
 libraryDependencies += "io.github.valters" % "valters-xml" % "1.0.0"
 
-
 // Test Database
 libraryDependencies += "com.h2database" % "h2" % "1.4.194"
 

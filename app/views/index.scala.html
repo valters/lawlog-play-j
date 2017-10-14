@@ -1,20 +1,13 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
+@(appToc: services.TableOfContents)
 
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
+@main("LawLog", "index") {
 
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @welcome(message, style = "java")
+    <p>Your new application is ready. Welcome to your new app.</p>
+
+    <ul>
+        @appToc.keys.map { key =>
+            <li><a href="@routes.LawController.index(key)">@appToc.law(key).meta.desc</a> <small>( <i class="fa fa-database" aria-hidden="true"></i> <a href="@appToc.law(key).meta.url">likumi.lv</a>)</small></li>
+        }
+    </ul>
 
 }
