@@ -1,4 +1,6 @@
-function lawInit( version ) {
+function lawInit() {
+    console.log( "lawInit")
+
     var law = new Vue({
           el: '#lawdiff-ajax-content',
 
@@ -9,13 +11,16 @@ function lawInit( version ) {
 
           methods: {
             // seed with current version
-            seedLaw: function( ver ) {
+            seedLaw: function() {
+                var element = document.getElementById('important-data');
+                var ver = element.getAttribute('data-data');
                 this.currVer = ver
-                console.log("seedLaw: " + this.currVer )
+                console.log( "seedLaw: " + this.currVer )
+                LawScroll.setup_click_handlers()
             },
 
             loadLaw: function ( law, ver ) {
-                console.log("loadLaw: " + this.currVer + " -> " + ver )
+                console.log( "loadLaw: " + this.currVer + " -> " + ver )
                 if( this.currVer == ver ) {
                     return // do nothing
                 }
@@ -34,7 +39,7 @@ function lawInit( version ) {
                     self.hideServerSideContent()
 
                     self.bodyContent = data
-                    Vue.nextTick( function() { LawScroll.setup_click_handlers() } )
+                    Vue.nextTick( function() { lawInit(ver) } )
 
                     window.history.pushState( null, null, href )
 
@@ -57,7 +62,7 @@ function lawInit( version ) {
 
         })
 
-    law.seedLaw( version )
+    law.seedLaw()
     return law
 }
 
@@ -154,3 +159,7 @@ var LawScroll = {
 
 
 }
+
+$(document).ready(function(){
+    lawInit();
+})

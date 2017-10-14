@@ -35,8 +35,7 @@ public class FileReader {
     public Document readXml( String file ) {
         try {
             InputStream stream = new java.io.FileInputStream( new File( file ) );
-            Document xml = parseXml( stream );
-            return xml;
+            return parseXml( stream );
         }
         catch(Exception e) {
             throw new RuntimeException( e );
@@ -53,8 +52,7 @@ public class FileReader {
     }
 
     public String nodeText( Document document, String xpathExpr ) {
-        String text = transform.nodesToString( xpath.findNode( document, xpathExpr ).getChildNodes() );
-        return text;
+        return transform.nodesToString( xpath.findNode( document, xpathExpr ).getChildNodes() );
     }
 
     public JsonNode readJson( String fileAsset ) {

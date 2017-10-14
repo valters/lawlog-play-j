@@ -3,7 +3,6 @@ package services;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -23,13 +22,22 @@ public class LawMetadata {
         this.versions = versions;
     }
 
+    private List<Pair<String,String>> isoVersions;
+
     /**
-     * convert full euro date into abbreviated iso date, keep both together because we need them to print the version list.
+     * We convert full euro date into abbreviated iso date, to keep both together because we need them both when printing the version list.
      *  sample entry: ('01.02.2017', '20170201')
      */
-    public List<Pair<String,String>> isoVersions = Optional.ofNullable(versions).
-            map( v -> v.stream().map( s -> Pair.of ( s, DateParam.eurToIso( s ) ) ).collect( Collectors.toList()) )
-            .orElse( Collections.emptyList() );
+    public List<Pair<String,String>> getIsoVersions() {
+        if( isoVersions == null ) {
+            isoVersions = Optional.ofNullable(versions).
+                    map( v -> v.stream().map( s -> Pair.of ( s, DateParam.eurToIso( s ) ) ).collect( Collectors.toList()) )
+                    .orElse( Collections.emptyList() );
+        }
+
+
+        return isoVersions;
+    }
 
     /** @param version iso date */
     public String diffFileFor( String version ) {

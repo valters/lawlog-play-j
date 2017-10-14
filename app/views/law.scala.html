@@ -4,6 +4,8 @@
 @import org.apache.commons.lang3.tuple.Pair
 
 @main("LawLog :: "+law.meta.desc, "index") {
+<div id="important-data" class="hidden-data" data-data='@diffVer'></div>
+
 <div id="lawdiff-ajax-content" class="container">
     <div class="row">
         <div class="wrapper">
@@ -13,8 +15,8 @@
                         Versijas
                     </li>
                     <div class="menu">
-        @for( lp: Pair[String, String] <- law.isoVersions ) {
-            <li><a id="@lp.getValue" v-on:click.prevent="loadLaw( '@lp.getKey', '@lp.getValue' )" href="@routes.LawController.version( lp.getKey, lp.getValue )" @if( diffVer == lp.getValue ) { class="active" }>@lp.getKey</a></li>
+        @for( lp: Pair[String, String] <- law.getIsoVersions() ) {
+            <li><a id="@lp.getValue" v-on:click.prevent="loadLaw( '@key', '@lp.getValue' )" href="@routes.LawController.version( key, lp.getValue )" @if( diffVer == lp.getValue ) { class="active" }>@lp.getKey</a></li>
         }
                     </div>
 
@@ -42,9 +44,5 @@
 </div>
 
 @tags.script.asset( "javascripts/law.js" )
-<script type="text/javascript">
-  var Law = lawInit( "@diffVer" )
-  LawScroll.setup_click_handlers()
-</script>
 
 }
