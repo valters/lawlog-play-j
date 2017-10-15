@@ -1,8 +1,14 @@
-name := """law-log-j"""
+name := """lawlog-play-j"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
+lazy val root = (project in file(".")).enablePlugins(PlayJava, DebianPlugin)
+
+maintainer in Linux := "Valters Vingolds <valters@vingolds.ch>"
+
+packageSummary in Linux := "LawLog (java)"
+
+packageDescription := "Law Log semantically diffs historic versions of legal texts"
 
 scalaVersion := "2.12.3"
 
